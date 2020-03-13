@@ -1,3 +1,9 @@
+$script_mysql = <<-SCRIPT
+    apt-get update && \
+    apt-get install -y mysql-server-5.7 && \
+    mysql -e "create user 'phpuser'@'%' identified by 'pass';"
+SCRIPT
+
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/bionic64"
 
@@ -7,10 +13,28 @@ Vagrant.configure("2") do |config|
     # https://www.vagrantup.com/docs/networking/forwarded_ports.html
     config.vm.network "forwarded_port", guest: 80, host:8089
 
-    # network privado, para ser usado pela propria maquina.
+    # Na Private Network (static ou dhcp) é usado um endereço privado que não é acessível na sua rede pública (por exemplo, a rede empresarial)
+    # ou seja, para ser usado pela propria maquina.
     # estas configuracoes modificam as conf de IP do host e tambem do VirtualBox
     config.vm.network "private_network", type: "dhcp"
 
-    # network publico, permite que outras maquinas da rede acesse a VM
+    # Na Public Network (static ou dhcp), usamos um endereço que faz parte da sua rede pública (por exemplo, da rede empresarial)
+    # ou seja, permite que outras maquinas da rede acessem a VM
     #config.vm.network "public_network", ip: "192.168.0.17" 
-  end
+
+    # configurando o Synced_folder, uma pasta compatilhada entre o guest e host
+    # No host é compartilhado a pasta que possui o Vagrantfile. No guest essa pasta é chamada de /vagrant.
+    config.vm.synced_folder "./myPath" , "/myPath"
+    #config.vm.synced_folder "." , "/vagrant", disable: true
+
+    
+    # Provisioning
+    # https://www.vagrantup.com/docs/provisioning/
+    config.vm.provision "shell", inline: "echo Hello, World"
+
+    # Configurando os servicos das VM. Nao precisa usar o SUDO
+    config.vm.provision "shell", inline: "apt-get update && apt-get install -y mysql-server-5.7"
+ 
+    # utilizando uma varivel
+    config.vm.provision "shell", inline: $script_mysql
+end

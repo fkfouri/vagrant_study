@@ -1,7 +1,7 @@
 $script_mysql = <<-SCRIPT
     mysql -e "create user 'phpuser'@'%' identified by 'pass';" && \
     cat /configs/mysqld.cnf > /etc/mysql/mysql.conf.d/mysqld.cnf && \
-    service restart mysql
+    service mysql restart
 SCRIPT
 
 Vagrant.configure("2") do |config|

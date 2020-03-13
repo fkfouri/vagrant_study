@@ -1,0 +1,1 @@
+{"virtualbox":{"/configs":{"guestpath":"/configs","hostpath":"E:/Vagrant/ambiente_dev/Multiple-Machine/configs","disabled":false,"__vagrantfile":true},"/vagrant":{"disable":true,"guestpath":"/vagrant","hostpath":"E:/Vagrant/ambiente_dev/Multiple-Machine","disabled":false,"__vagrantfile":true}}}

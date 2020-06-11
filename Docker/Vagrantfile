@@ -12,8 +12,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt -y install docker.io
   SHELL
-  config.vm.provision "shell", 
-  inline: "sudo"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -31,7 +29,7 @@ Vagrant.configure("2") do |config|
       cmd: "npm start"
 
 
-    #docker run -p 8080:3000 -v "/e/Projetos/praevidere_victum/app:/app" -w "/app" node npm start
+    #docker run -p 8080:3000 -v "/vagrant/app:/app" -w "/app" node:current-slim npm start
   end
 
   # Disable automatic box update checking. If you disable this, then

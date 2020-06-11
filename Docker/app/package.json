@@ -5,9 +5,10 @@
   "author": "Teste <teste@teste.com>",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon --legacy-watch server.js"
   },
   "dependencies": {
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "nodemon": "^2.0.4"
   }
 }
